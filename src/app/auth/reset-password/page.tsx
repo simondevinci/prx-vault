@@ -85,12 +85,21 @@ export default function ResetPasswordPage() {
       await new Promise((r) => setTimeout(r, 600));
 
       // 2) Call the Edge Function
-        await supabase.functions.invoke("log-password-reset", {
-            body: {
-                email: values.email,
-                resetTime: new Date().toISOString(),
-            },
+        // await supabase.functions.invoke("log-password-reset", {
+        //     body: {
+        //         email: values.email,
+        //         resetTime: new Date().toISOString(),
+        //     },
+        // });
+        const { data, error } = await supabase.functions.invoke("log-password-reset", {
+          body: {
+            email: values.email,
+            resetTime: new Date().toISOString(),
+          },
         });
+
+        if (error) throw error;
+
       // 3) Success + redirect
       setSuccess(true);
     } catch (e) {
