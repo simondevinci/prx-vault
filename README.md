@@ -1,8 +1,5 @@
 # PRX Vault – Junior Engineer Technical Challenge
 ## Password Reset UI + Supabase Edge Function (log-password-reset)
-
-This repository contains my submission for the PRX Vault technical challenge.
-
 ---
 
 ## Overview
@@ -38,3 +35,66 @@ Expected payload:
   "email": "user@example.com",
   "resetTime": "2025-12-30T09:45:33.051Z"
 }
+
+How to Run (Step-by-step)
+
+Prerequisites
+- Node.js installed
+- Docker Desktop installed and running
+- Supabase CLI installed
+
+1) Install dependencies
+
+From the project root:
+npm install
+
+2) Start Supabase locally
+
+In Terminal 1:
+supabase start
+
+Expected output includes:
+Project URL: http://127.0.0.1:54321
+Edge Functions base URL: http://127.0.0.1:54321/functions/v1
+
+3) Serve the Edge Function
+
+In Terminal 2:
+supabase functions serve
+
+
+Expected output includes:
+http://127.0.0.1:54321/functions/v1/log-password-reset
+
+4) Configure environment variables
+
+Create a .env.local in the project root:
+NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<publishable key from supabase start output>
+
+Note: This file is intentionally not committed.
+
+5) Run the Next.js app
+
+In Terminal 3:
+npm run dev
+
+
+Open:
+http://localhost:3000/auth/reset-password
+
+6) Verify the full flow
+
+- Open the reset password page
+
+- Enter a valid password + confirm
+
+- Submit
+
+- Expected results:
+
+- UI shows success + redirects to /auth/login
+
+- Terminal 2 (supabase functions serve) prints a log like:
+
+- Password reset event logged: { email: "user@example.com", resetTime: "..." }
