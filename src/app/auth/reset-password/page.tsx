@@ -22,7 +22,7 @@ const formSchema = z
   .object({
     password: passwordSchema,
     confirmPassword: z.string(),
-    // Simulate having the user's email (in real flows, you'd get it from session/query).
+    // Simulate having the user's email 
     email: z.string().email().default("user@example.com"),
   })
   .refine((data) => data.password === data.confirmPassword, {
