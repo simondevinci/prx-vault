@@ -1,24 +1,35 @@
-# PRX Vault – Technical Challenge (Password Reset + Supabase Edge Function)
+# PRX Vault – Junior Engineer Technical Challenge
+## Password Reset UI + Supabase Edge Function (log-password-reset)
 
-This repo contains my submission for the PRX Vault Junior–Mid Software Engineer technical challenge.
+This repository contains my submission for the PRX Vault technical challenge.
 
-## What I built
+---
 
-### 1) Password Reset UI (Next.js App Router + Tailwind)
-A reset password page with:
-- Password + confirm password fields
-- Validation rules (min length, uppercase, number, special character)
+## Overview
+
+### Part 1 — Password Reset UI (Next.js + Tailwind)
+Implemented a password reset page using Next.js App Router with:
+- New password + confirm password fields
+- Validation rules via **Zod**:
+  - Minimum 8 characters
+  - At least 1 uppercase letter
+  - At least 1 number
+  - At least 1 special character
+  - Confirm password must match
 - Inline error messages
-- Password strength indicator (Weak/Medium/Strong)
-- Success state with auto-redirect to `/auth/login`
+- Simple password strength indicator (Weak / Medium / Strong)
+- On success: shows a success message and redirects to `/auth/login`
 
 Route:
-- `/auth/reset-password`
+- `http://localhost:3000/auth/reset-password`
 
-### 2) Supabase Edge Function – `log-password-reset`
-An Edge Function that receives a JSON payload and logs it to the console, returning a JSON response.
+### Part 2 — Supabase Edge Function (`log-password-reset`)
+Created and served a Supabase Edge Function that:
+- Accepts a JSON payload `{ email, resetTime }`
+- Logs the event to the console
+- Returns `{ status: "logged" }`
 
-Endpoint (local):
+Local endpoint:
 - `http://127.0.0.1:54321/functions/v1/log-password-reset`
 
 Expected payload:
@@ -27,5 +38,3 @@ Expected payload:
   "email": "user@example.com",
   "resetTime": "2025-12-30T09:45:33.051Z"
 }
-
-
